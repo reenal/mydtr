@@ -1,0 +1,923 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "DTR",
+    "version": "1.0.0",
+    "title": "DTR",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "DRT API",
+      "description": "DTR all api"
+    }
+  ],
+  "paths": {
+    "/request": {
+      "get": {
+        "tags": [
+          "Book Request"
+        ],
+        "summary": "Returns bookRequests",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/bookRequests"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Book Request"
+        ],
+        "summary": "Create a new book request system",
+        "requestBody": {
+          "description": "Book Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/bookRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+    "/request/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the cat that we want to match",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Book Request"
+        ],
+        "summary": "Get book request with given ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Book Request id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/bookRequest"
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. Book request not found."
+          }
+        }
+      },
+      "put": {
+        "summary": "edit a book request by ID",
+        "tags": [
+          "Book Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Book Request id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Book Request Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/bookRequest"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/bookRequest"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Book Request by ID",
+        "tags": [
+          "Book Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Book Request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. Book Request not found."
+          }
+        }
+      }
+    },
+    "/requestwelcome": {
+      "get": {
+        "tags": [
+          "DRT API"
+        ],
+        "summary": "Welcome Api",
+        "responses": {
+          "200": {
+            "description": "Welcome DTR"
+          }
+        }
+      }
+    },
+    "/transformer_specification_IEC": {
+      "get": {
+        "tags": [
+          "DRT API"
+        ],
+        "summary": "Welcome reenal",
+        "responses": {
+          "200": {
+            "description": "Welcome test",
+              "schema": {
+              "$ref": "#/components/schemas/trn_spec"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "DRT API"
+        ],
+        "summary": "Welcome reenal",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/trn_spec"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                   "ffile": {
+                    "type": "string",
+                     "format": "binary",
+                    "required": true
+                  }
+
+                }
+              }
+
+            }
+          }
+        },
+
+        "responses": {
+          "200": {
+            "description": "all para submitted"
+
+          }
+        }
+      }
+    },
+    "/api/v1/model/iec/format/raw_IEC": {
+      "post": {
+        "tags": [
+          "DRT API"
+        ],
+        "summary": "This api for sending raw data and  trans specification",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/trn_spec_raw"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "all para submitted"
+
+          }
+        }
+      }
+    },
+    "/api/v1/model/iec/format/current": {
+      "post": {
+        "tags": [
+          "DRT API"
+        ],
+        "summary": "This api for sending raw data and  trans specification",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/trn_spec_current"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "all para submitted"
+
+          }
+        }
+      }
+    },
+    "/api/v1/model/ieee/format/raw_IEEE": {
+      "post": {
+        "tags": [
+          "DRT API"
+        ],
+        "summary": "This api for sending raw data and  trans specification",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/trn_spec_raw_ieee"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "all para submitted"
+
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "id": {
+        "properties": {
+          "uuid": {
+            "type": "string"
+          }
+        }
+      },
+      "bookRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "format": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        }
+      },
+      "bookRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "format": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "number"
+          }
+        }
+      },
+      "bookRequests": {
+        "type": "object",
+        "properties": {
+          "bookRequest": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/bookRequest"
+            }
+          }
+        }
+      },
+      "trn_spec": {
+        "properties": {
+          "power": {
+            "type": "number",
+            "required": true
+           },
+            "primary voltage": {
+            "type": "number",
+            "required": true
+          },
+          "secondary voltage": {
+            "type": "number",
+            "required": true
+          },
+          "loss ratio at rated load": {
+            "type": "number",
+            "required": true
+          },
+           "temperature reference": {
+            "type": "number",
+            "required": true
+          },
+          "temperature rise of top oil over ambient": {
+            "type": "number",
+            "required": true
+          },
+           "temperature rise of average oil": {
+            "type": "number"
+          },
+           "temperature rise of winding": {
+            "type": "number"
+          },
+           "hot spot temperature rise of winding": {
+            "type": "number",
+            "required": true
+          },
+           "rated ambient temperature": {
+            "type": "number",
+            "required": true
+          },
+           "primary winding hotspot factor": {
+            "type": "number"
+          },
+           "secondary winding hotspot factor": {
+            "type": "number"
+          },
+           "rated HV current": {
+            "type": "number",
+            "required": true
+          },
+           "rated LV current": {
+            "type": "number",
+            "required": true
+          },
+           "cold resistance of HV winding": {
+            "type": "number",
+            "required": true
+          },
+           "cold resistance of LV winding": {
+            "type": "number",
+            "required": true
+          },
+           "hot resistance of HV winding": {
+            "type": "number",
+            "required": true
+          },
+           "hot resistance of LV winding": {
+            "type": "number",
+            "required": true
+          },
+           "weight core": {
+            "type": "number"
+          },
+           "weight tank": {
+            "type": "number"
+          },
+           "weight oil": {
+            "type": "number"
+          },
+           "weight coil": {
+            "type": "number"
+          },
+           "oil time constant": {
+            "type": "number",
+            "required": true
+          },
+          "cooling operation": {
+            "type": "string",
+             "enum": [ "ONAN", "ONAN/ONAF", "ONAN/ONAF/ONAF","ONAN/ONAF/OFAF","ONWF","ONWF/ONAN","OFAF","OFWF"],
+            "required": true
+          }
+        }
+      },
+      "trn_spec_raw": {
+        "type": "object",
+        "properties": {
+          "collectedData": {
+              "type": "array",
+              "items": {
+              "type": "object",
+              "properties": {
+                "temperature": {
+                  "type": "number"
+                },
+                "timestamp": {
+                  "type": "string"
+                },
+                "load": {
+                  "type": "number"
+                },
+                "voltage": {
+                  "type": "number"
+                }
+              }
+
+
+            }
+
+          },
+          "transformerSpec": {
+             "properties": {
+          "power": {
+            "type": "number",
+            "required": true
+           },
+            "primary voltage": {
+            "type": "number",
+            "required": true
+          },
+          "secondary voltage": {
+            "type": "number",
+            "required": true
+          },
+          "loss ratio at rated load": {
+            "type": "number",
+            "required": true
+          },
+           "temperature reference": {
+            "type": "number",
+            "required": true
+          },
+          "temperature rise of top oil over ambient": {
+            "type": "number",
+            "required": true
+          },
+           "temperature rise of average oil": {
+            "type": "number"
+          },
+           "temperature rise of winding": {
+            "type": "number"
+          },
+           "hot spot temperature rise of winding": {
+            "type": "number",
+            "required": true
+          },
+           "rated ambient temperature": {
+            "type": "number",
+            "required": true
+          },
+           "primary winding hotspot factor": {
+            "type": "number"
+          },
+           "secondary winding hotspot factor": {
+            "type": "number"
+          },
+           "rated HV current": {
+            "type": "number",
+            "required": true
+          },
+           "rated LV current": {
+            "type": "number",
+            "required": true
+          },
+           "cold resistance of HV winding": {
+            "type": "number",
+            "required": true
+          },
+           "cold resistance of LV winding": {
+            "type": "number",
+            "required": true
+          },
+           "hot resistance of HV winding": {
+            "type": "number",
+            "required": true
+          },
+           "hot resistance of LV winding": {
+            "type": "number",
+            "required": true
+          },
+           "weight core": {
+            "type": "number"
+          },
+           "weight tank": {
+            "type": "number"
+          },
+           "weight oil": {
+            "type": "number"
+          },
+           "weight coil": {
+            "type": "number"
+          },
+           "oil time constant": {
+            "type": "number",
+            "required": true
+          },
+          "cooling operation": {
+            "type": "string",
+             "enum": [ "ONAN", "ONAN/ONAF", "ONAN/ONAF/ONAF","ONAN/ONAF/OFAF","ONWF","ONWF/ONAN","OFAF","OFWF"],
+            "required": true
+          }
+        }
+          }
+
+        }
+      },
+      "trn_spec_current": {
+        "type": "object",
+        "properties": {
+          "current_data_per_timestamp": {
+              "type": "object",
+              "properties": {
+                "time_step_in_minutes":
+                {
+                  "type": "number"
+                },
+                "temperature": {
+                  "type": "number"
+                },
+                "timestamp": {
+                  "type": "string"
+                },
+                "load": {
+                  "type": "number"
+                },
+                "voltage": {
+                  "type": "number"
+                }
+              }
+          },
+          "prev_output": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "T_o": {
+                  "type": "number"
+                },
+                "Dt_h1": {
+                  "type": "number"
+                },
+                "Dt_h2": {
+                  "type": "number"
+                },
+                "LOL": {
+                  "type": "number"
+                }
+              }
+          },
+          "transformer_spec": {
+             "properties": {
+           "power": {
+            "type": "number",
+            "required": true
+           },
+           "primary voltage": {
+            "type": "number",
+            "required": true
+          },
+           "secondary voltage": {
+            "type": "number",
+            "required": true
+          },
+           "loss_ration_at_rated_load": {
+            "type": "number",
+            "required": true
+          },
+           "temperature reference": {
+            "type": "number",
+            "required": true
+          },
+           "temp_rise_oil": {
+            "type": "number",
+            "required": true
+          },
+           "temperature rise of average oil": {
+            "type": "number"
+          },
+           "temperature rise of winding": {
+            "type": "number"
+          },
+           "hot spot temperature rise of winding": {
+            "type": "number",
+            "required": true
+          },
+           "rated ambient temperature": {
+            "type": "number",
+            "required": true
+          },
+           "primary winding hotspot factor": {
+            "type": "number"
+          },
+           "secondary winding hotspot factor": {
+            "type": "number"
+          },
+           "rated HV current": {
+            "type": "number",
+            "required": true
+          },
+           "rated LV current": {
+            "type": "number",
+            "required": true
+          },
+           "cold resistance of HV winding": {
+            "type": "number",
+            "required": true
+          },
+           "cold resistance of LV winding": {
+            "type": "number",
+            "required": true
+          },
+           "hot resistance of HV winding": {
+            "type": "number",
+            "required": true
+          },
+           "hot resistance of LV winding": {
+            "type": "number",
+            "required": true
+          },
+           "weight core": {
+            "type": "number"
+          },
+           "weight tank": {
+            "type": "number"
+          },
+           "weight oil": {
+            "type": "number"
+          },
+           "weight coil": {
+            "type": "number"
+          },
+           "cooling operation": {
+            "type": "string",
+             "enum": [ "ONAN", "ONAN/ONAF", "ONAN/ONAF/ONAF","ONAN/ONAF/OFAF","ONWF","ONWF/ONAN","OFAF","OFWF"],
+            "required": true
+          },
+           "hot_spot_to_top_oil": {
+              "type": "number"
+            },
+           "oil_time_constant": {
+              "type": "number"
+            },
+           "winding_time_constant": {
+              "type": "number"
+            },
+           "exp_power_of_winding_exponent": {
+              "type": "number"
+            },
+           "empirical_constant_1": {
+              "type": "number"
+            },
+           "empirical_constant_2": {
+              "type": "number"
+            },
+           "empirical_constant_3": {
+              "type": "number"
+            },
+           "exp_power_of_oil_exponent": {
+              "type": "number"
+            },
+           "a_paper_insulation": {
+              "type": "number"
+            },
+           "a_rated_paper_insulation": {
+              "type": "number"
+            },
+           "activation_energy_paper": {
+              "type": "number"
+            },
+           "rated_activation_energy_paper": {
+              "type": "number"
+            },
+           "rated_hot_spot_temperature": {
+              "type": "number"
+            }
+             }
+          }
+        }
+      },
+      "trn_spec_raw_ieee": {
+        "type": "object",
+        "properties": {
+          "collectedData": {
+              "type": "array",
+              "items": {
+              "type": "object",
+              "properties": {
+                "temperature": {
+                  "type": "number"
+                },
+                "timestamp": {
+                  "type": "string"
+                },
+                "load": {
+                  "type": "number"
+                },
+                "voltage": {
+                  "type": "number"
+                }
+              }
+
+
+            }
+
+          },
+          "transformerSpec": {
+          "properties": {
+          "power": {
+            "type": "number",
+            "required": true
+           },
+          "primary voltage": {
+            "type": "number",
+            "required": true
+          },
+          "secondary voltage": {
+            "type": "number",
+            "required": true
+          },
+          "load losses":{
+            "type": "number",
+            "required": true
+          },
+          "no load losses": {
+            "type": "number",
+            "required": true
+          },
+          "temperature reference": {
+            "type": "number",
+            "required": true
+          },
+          "temperature rise of top oil over ambient": {
+            "type": "number",
+            "required": true
+          },
+          "temperature rise of bottom oil over ambient": {
+            "type": "number",
+            "required": true
+          },
+          "temperature rise of average oil": {
+            "type": "number"
+          },
+          "temperature rise of winding": {
+            "type": "number"
+          },
+          "hot spot temperature rise of winding": {
+            "type": "number",
+            "required": true
+          },
+          "rated ambient temperature": {
+            "type": "number",
+            "required": true
+          },
+          "primary winding hotspot factor": {
+            "type": "number"
+          },
+          "secondary winding hotspot factor": {
+            "type": "number"
+          },
+          "rated HV current": {
+            "type": "number",
+            "required": true
+          },
+          "rated LV current": {
+            "type": "number",
+            "required": true
+          },
+          "cold resistance of HV winding": {
+            "type": "number",
+            "required": true
+          },
+          "cold resistance of LV winding": {
+            "type": "number",
+            "required": true
+          },
+          "hot resistance of HV winding": {
+            "type": "number",
+            "required": true
+          },
+          "hot resistance of LV winding": {
+            "type": "number",
+            "required": true
+          },
+          "weight core": {
+            "type": "number"
+          },
+          "weight tank": {
+            "type": "number"
+          },
+          "weight oil": {
+            "type": "number"
+          },
+          "weight coil": {
+            "type": "number"
+          },
+          "winding time constant": {
+            "type": "number",
+            "required": true
+          },
+          "winding material": {
+            "type": "string",
+            "required": true
+          },
+          "tank material": {
+            "type": "string",
+            "required": true
+          },
+          "type of fluid": {
+            "type": "string",
+             "enum": [ "Mineral oil", "Ester oil", "Other"],
+            "required": true
+          },
+
+          "cooling operation": {
+            "type": "string",
+             "enum": [ "ONAN", "ONAN/ONAF", "ONAN/ONAF/ONAF","ONAN/ONAF/OFAF","ONWF","ONWF/ONAN","OFAF","OFWF"],
+            "required": true
+          }
+            }
+          }
+        }
+      },
+      "obj_sch": {
+        "properties": {
+          "temperature": {
+            "type": "number"
+          },
+          "timestamp": {
+            "type": "string"
+          },
+          "load": {
+            "type": "number"
+          },
+           "voltage": {
+            "type": "number"
+          }
+        }
+
+      }
+
+    }
+  }
+}
