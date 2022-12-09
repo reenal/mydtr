@@ -1,0 +1,7 @@
+{
+    "name": "dtr",
+    "description": "DTR Python3 Flask Rest API",
+    "repository": "https://github.com/dtr",
+    "logo": "",
+    "keywords": ["python", "flask", "rest", "crud", "swagger-ui", "pylint", "pep8", "nosetests", "seanwasere"]
+  }
